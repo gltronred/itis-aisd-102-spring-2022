@@ -46,9 +46,16 @@ class Lst<T> {
 
 public class L2 {
     public static void main(String[] args) {
-        Lst<Integer> lst = Lst.cons(1,
+        Lst<Integer> lst = Lst.cons(0,
                             Lst.cons(2,
-                             Lst.nil()));
+                            Lst.cons(15,
+                            Lst.cons(4,
+                            Lst.cons(3,
+                            Lst.cons(2,
+                            Lst.cons(0,
+                            Lst.nil())))))));
         Lst.print(lst);
+        Lst<Integer> l2 = Lst.removeEven(lst);
+        Lst.print(l2);
     }
 }

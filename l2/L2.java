@@ -16,17 +16,22 @@ class Lst<T> {
 
     public static <T> void print(Lst<T> lst) {
         Lst<T> p = lst;
-        while (p.next != null) {
+        while (p != null) {
             System.out.print(p.val + " ");
             p = p.next;
         }
         System.out.println();
     }
+
+    // Функция удаления всех чётных элементов
+    // из списка
 }
 
 public class L2 {
     public static void main(String[] args) {
-        Lst<Integer> lst = Lst.cons(1, Lst.cons(2, Lst.nil()));
+        Lst<Integer> lst = Lst.cons(1,
+                            Lst.cons(2,
+                             Lst.nil()));
         Lst.print(lst);
     }
 }

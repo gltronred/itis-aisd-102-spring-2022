@@ -25,6 +25,23 @@ class Lst<T> {
 
     // Функция удаления всех чётных элементов
     // из списка
+    public static Lst<Integer> removeEven(Lst<Integer> lst) {
+        // сдвигаем начало списка, пока там чётные элементы
+        Lst<Integer> p = lst;
+        while (p != null && p.val % 2 == 0) {
+            p = p.next;
+        }
+        // удаляем чётные элементы в середине списка
+        Lst<Integer> q = p;
+        while (q != null && q.next != null) {
+            if (q.next.val % 2 == 0) {
+                q.next = q.next.next;
+            } else {
+                q = q.next;
+            }
+        }
+        return p;
+    }
 }
 
 public class L2 {

@@ -23,16 +23,38 @@ class Table<K,V> {
         for (int i=0; i<n; i++) a.add(null);
         cnt = 0;
     }
-    public void insert(K k, V v) {
+    void insertTo(ArrayList<LinkedList<Pair<K,V>>> a, int n, K k, V v) {
         int i = k.hashCode() % n;
         if (a.get(i) == null) {
             a.set(i, new LinkedList<>());
         }
         a.get(i).add(new Pair<>(k,v));
+    }
+    void changeSize(int newSize) {
+        ArrayList<LinkedList<Pair<K,V>>> b = new ArrayList<>();
+        for (int i=0; i<newSize; i++) b.add(null);
+        for (LinkedList<Pair<K,V>> l : a) {
+            if (l != null) {
+                for (Pair<K,V> p : l) {
+                    insertTo(b, newSize, p.fst, p.snd);
+                }
+            }
+        }
+        n = newSize;
+        a = b;
+    }
+    public void insert(K k, V v) {
+        insertTo(a,n,k,v);
         cnt++;
+        if (cnt > 0.85*n) {
+            changeSize(3*n/2);
+        }
     }
     public V lookup(K k) {
         int i = k.hashCode() % n;
+        if (a.get(i) == null) {
+            return null;
+        }
         for (Pair<K,V> el : a.get(i)) {
             if (el.fst.equals(k)) {
                 return el.snd;
@@ -47,12 +69,14 @@ class Table<K,V> {
 
 public class L4 {
     public static void main(String[] args) {
-        Table<Integer,String> t = new Table<>();
+        Table<String,Integer> t = new Table<>();
         for (Integer i=0; i<10; i++) {
-            t.insert(i, i.toString());
+            String k = i.toString();
+            k = k + k;
+            t.insert(k, i);
             System.out.println(t);
         }
-        System.out.println(t.lookup(8));
-        System.out.println(t.lookup(100));
+        System.out.println(t.lookup("8"));
+        System.out.println(t.lookup("100"));
     }
 }

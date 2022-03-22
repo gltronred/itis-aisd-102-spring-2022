@@ -76,7 +76,7 @@ public class L4 {
             t.insert(k, i);
             System.out.println(t);
         }
-        System.out.println(t.lookup("8"));
+        System.out.println(t.lookup("88"));
         System.out.println(t.lookup("100"));
     }
 }

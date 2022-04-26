@@ -35,12 +35,34 @@ public class L6 {
         showCodePrefixed("", code);
     }
     public static Tree huffman(int[] freq, String[] letters) {
-        return null;
+        PriorityQueue<Tree> pq =
+            new PriorityQueue<>(Comparator.comparing(t -> t.getFreq()));
+        for (int i=0; i<freq.length; i++) {
+            pq.add(new Tree(freq[i],
+                            letters[i],
+                            null,
+                            null));
+        }
+        while (pq.size() > 1) {
+            Tree m1 = pq.poll();
+            Tree m2 = pq.poll();
+            System.out.println("DEBUG:\t" +
+                               m1.getLetter() + " " + m1.getFreq() +
+                               "\t+\t" +
+                               m2.getLetter() + " " + m2.getFreq());
+            pq.add(new Tree(m1.getFreq() + m2.getFreq(),
+                            m1.getLetter() + m2.getLetter(),
+                            m1,
+                            m2));
+        }
+        return pq.poll();
     }
     public static void main(String[] args) {
         int[] freq = {30, 5,5, 8,7, 12,12, 14};
         String[] letters = {"a", "b", "c", "d", "e", "f", "g", "h"};
         Tree code = huffman(freq, letters);
+        // Tree code = huffman(new int[]{5,3,1,1},
+        //                     new String[]{"a","b","c","d"});
         showCode(code);
     }
 }
